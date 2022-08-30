@@ -1,0 +1,77 @@
+[2022-07-28 15:09:37,542] {taskinstance.py:1179} INFO - Dependencies all met for <TaskInstance: MA_historic_data.extract_historic_data_from_tda scheduled__2022-07-28T14:30:00+00:00 [queued]>
+[2022-07-28 15:09:37,588] {taskinstance.py:1179} INFO - Dependencies all met for <TaskInstance: MA_historic_data.extract_historic_data_from_tda scheduled__2022-07-28T14:30:00+00:00 [queued]>
+[2022-07-28 15:09:37,592] {taskinstance.py:1376} INFO - 
+--------------------------------------------------------------------------------
+[2022-07-28 15:09:37,598] {taskinstance.py:1377} INFO - Starting attempt 1 of 2
+[2022-07-28 15:09:37,598] {taskinstance.py:1378} INFO - 
+--------------------------------------------------------------------------------
+[2022-07-28 15:09:37,684] {taskinstance.py:1397} INFO - Executing <Task(PythonOperator): extract_historic_data_from_tda> on 2022-07-28 14:30:00+00:00
+[2022-07-28 15:09:37,694] {standard_task_runner.py:52} INFO - Started process 803 to run task
+[2022-07-28 15:09:37,733] {standard_task_runner.py:79} INFO - Running: ['***', 'tasks', 'run', 'MA_historic_data', 'extract_historic_data_from_tda', 'scheduled__2022-07-28T14:30:00+00:00', '--job-id', '99', '--raw', '--subdir', 'DAGS_FOLDER/open_options.py', '--cfg-path', '/tmp/tmpexwrk7sv', '--error-file', '/tmp/tmph4k0dcoi']
+[2022-07-28 15:09:37,753] {standard_task_runner.py:80} INFO - Job 99: Subtask extract_historic_data_from_tda
+[2022-07-28 15:09:38,104] {task_command.py:371} INFO - Running <TaskInstance: MA_historic_data.extract_historic_data_from_tda scheduled__2022-07-28T14:30:00+00:00 [running]> on host a2299eb83309
+[2022-07-28 15:09:40,082] {taskinstance.py:1591} INFO - Exporting the following env vars:
+AIRFLOW_CTX_DAG_OWNER=vardhan
+AIRFLOW_CTX_DAG_ID=MA_historic_data
+AIRFLOW_CTX_TASK_ID=extract_historic_data_from_tda
+AIRFLOW_CTX_EXECUTION_DATE=2022-07-28T14:30:00+00:00
+AIRFLOW_CTX_TRY_NUMBER=1
+AIRFLOW_CTX_DAG_RUN_ID=scheduled__2022-07-28T14:30:00+00:00
+[2022-07-28 15:09:56,491] {taskinstance.py:1909} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.7/site-packages/urllib3/response.py", line 700, in _update_chunk_length
+    self.chunk_left = int(line, 16)
+ValueError: invalid literal for int() with base 16: b''
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.7/site-packages/urllib3/response.py", line 441, in _error_catcher
+    yield
+  File "/home/airflow/.local/lib/python3.7/site-packages/urllib3/response.py", line 767, in read_chunked
+    self._update_chunk_length()
+  File "/home/airflow/.local/lib/python3.7/site-packages/urllib3/response.py", line 704, in _update_chunk_length
+    raise InvalidChunkLength(self, line)
+urllib3.exceptions.InvalidChunkLength: InvalidChunkLength(got length b'', 0 bytes read)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.7/site-packages/requests/models.py", line 816, in generate
+    for chunk in self.raw.stream(chunk_size, decode_content=True):
+  File "/home/airflow/.local/lib/python3.7/site-packages/urllib3/response.py", line 575, in stream
+    for line in self.read_chunked(amt, decode_content=decode_content):
+  File "/home/airflow/.local/lib/python3.7/site-packages/urllib3/response.py", line 796, in read_chunked
+    self._original_response.close()
+  File "/usr/local/lib/python3.7/contextlib.py", line 130, in __exit__
+    self.gen.throw(type, value, traceback)
+  File "/home/airflow/.local/lib/python3.7/site-packages/urllib3/response.py", line 458, in _error_catcher
+    raise ProtocolError("Connection broken: %r" % e, e)
+urllib3.exceptions.ProtocolError: ("Connection broken: InvalidChunkLength(got length b'', 0 bytes read)", InvalidChunkLength(got length b'', 0 bytes read))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.7/site-packages/airflow/operators/python.py", line 171, in execute
+    return_value = self.execute_callable()
+  File "/home/airflow/.local/lib/python3.7/site-packages/airflow/operators/python.py", line 189, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+  File "/opt/airflow/dags/open_options.py", line 112, in extract_historic_data_from_tda
+    params=params
+  File "/home/airflow/.local/lib/python3.7/site-packages/requests/api.py", line 73, in get
+    return request("get", url, params=params, **kwargs)
+  File "/home/airflow/.local/lib/python3.7/site-packages/requests/api.py", line 59, in request
+    return session.request(method=method, url=url, **kwargs)
+  File "/home/airflow/.local/lib/python3.7/site-packages/requests/sessions.py", line 587, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/home/airflow/.local/lib/python3.7/site-packages/requests/sessions.py", line 745, in send
+    r.content
+  File "/home/airflow/.local/lib/python3.7/site-packages/requests/models.py", line 900, in content
+    self._content = b"".join(self.iter_content(CONTENT_CHUNK_SIZE)) or b""
+  File "/home/airflow/.local/lib/python3.7/site-packages/requests/models.py", line 819, in generate
+    raise ChunkedEncodingError(e)
+requests.exceptions.ChunkedEncodingError: ("Connection broken: InvalidChunkLength(got length b'', 0 bytes read)", InvalidChunkLength(got length b'', 0 bytes read))
+[2022-07-28 15:09:56,545] {taskinstance.py:1420} INFO - Marking task as UP_FOR_RETRY. dag_id=MA_historic_data, task_id=extract_historic_data_from_tda, execution_date=20220728T143000, start_date=20220728T150937, end_date=20220728T150956
+[2022-07-28 15:09:56,590] {standard_task_runner.py:97} ERROR - Failed to execute job 99 for task extract_historic_data_from_tda (("Connection broken: InvalidChunkLength(got length b'', 0 bytes read)", InvalidChunkLength(got length b'', 0 bytes read)); 803)
+[2022-07-28 15:09:56,645] {local_task_job.py:156} INFO - Task exited with return code 1
+[2022-07-28 15:09:56,946] {local_task_job.py:273} INFO - 0 downstream tasks scheduled from follow-on schedule check
